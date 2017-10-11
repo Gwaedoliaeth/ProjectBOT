@@ -16,7 +16,6 @@ namespace ProjectBOT
         internal static void PrepareBot()
 
         {
-            List<TestClass> list = new List<TestClass>();
         }
     }
 }
