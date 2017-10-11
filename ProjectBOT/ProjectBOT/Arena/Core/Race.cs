@@ -7,33 +7,18 @@ namespace ProjectBOT.Arena.Core
 {
     public class Race
     {
+        public static string FileName { get { return "core/races.json"; } }
+
         /// <summary>
         /// Race name.
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// List containing attributes and their bonuses.
-        /// Example of stored item in a list: AttributeType.Strength, 1
+        /// Dictionary of attribute modifiers.
         /// </summary>
-        public List<RaceAttribute> Attributes { get; set; } = new List<RaceAttribute>();
+        public Dictionary<AttributeType, int> AttributeModifiers { get; set; } = new Dictionary<AttributeType, int>();
 
         
         public Race() { }
-    }
-
-    public class RaceAttribute
-    {
-        public AttributeType Type { get; set; }
-        public int Base { get; set; }
-        public int Rolls { get; set; }
-
-        public RaceAttribute() { }
-
-        public RaceAttribute(AttributeType type, int baseValue, int rolls)
-        {
-            this.Type = type;
-            this.Base = baseValue;
-            this.Rolls = rolls;
-        }
     }
 }

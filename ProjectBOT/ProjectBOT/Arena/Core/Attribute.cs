@@ -9,6 +9,21 @@ namespace ProjectBOT.Arena.Core
 {
     public class Attribute
     {
+        public static List<AttributeType> AttributeTypes
+        {
+            get
+            {
+                List<AttributeType> list = new List<AttributeType>();
+                list.Add(AttributeType.Strength);
+                list.Add(AttributeType.Dexterity);
+                list.Add(AttributeType.Constitution);
+                list.Add(AttributeType.Intelligence);
+                list.Add(AttributeType.Wisdom);
+                list.Add(AttributeType.Charisma);
+                return list;
+            }
+        }
+
         public AttributeType Type { get; set; }
         public int Base { get; set; }
 
@@ -39,22 +54,17 @@ namespace ProjectBOT.Arena.Core
             Attribute attribute = new Attribute();
             attribute.Type = type;
 
-            // If race isn't specified, just roll 4 times and substract lowest
-            if (race == null)
+            // 4d6 substract lowest
+            List<int> rolls = new List<int>();
+            for (int i = 1; i <= 4; i++)
+                rolls.Add(Globals.Random.Next(1, 7));
+            attribute.Base = (rolls.Sum() - rolls.OrderBy(x => x).FirstOrDefault());
+
+
+            // If race is specified, use specific modifier for attribute
+            if (race != null && race.AttributeModifiers.ContainsKey(type))
             {
-                List<int> rolls = new List<int>();
-                for (int i = 1; i <= 4; i++)
-                    rolls.Add(Globals.Random.Next(1, 7));
-                attribute.Base = (rolls.Sum() - rolls.OrderBy(x => x).FirstOrDefault());
-            }
-            // If race is specified, use specific rolls for each attribute
-            else
-            {
-                RaceAttribute ra = race.Attributes.Where(x => x.Type == type).FirstOrDefault();
-                List<int> rolls = new List<int>();
-                for (int i = 1; i <= ra.Rolls; i++)
-                    rolls.Add(Globals.Random.Next(1, 7));
-                attribute.Base = ra.Base + rolls.Sum();
+                attribute.Base += race.AttributeModifiers[type];
             }
 
             return attribute;
