@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ProjectBOT.Arena.Core
 {
-    class Weapon
+    public class Weapon
     {
+
     }
 }

@@ -9,6 +9,9 @@ namespace ProjectBOT.Arena.Core
 {
     public class Attribute
     {
+        /// <summary>
+        /// Gets a list of all attributes in correct order.
+        /// </summary>
         public static List<AttributeType> AttributeTypes
         {
             get

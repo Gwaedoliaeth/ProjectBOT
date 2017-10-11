@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectBOT.Arena.Core;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -15,12 +16,16 @@ namespace ProjectBOT.Common
         /// String used for mentioning an user.
         /// </summary>
         public string Mention { get; set; }
+        /// <summary>
+        /// Currently used character.
+        /// </summary>
+        public Character Character { get; set; }
 
         /// <summary>
         /// File name for the current User.
         /// </summary>
         [JsonIgnore]
-        public string FileName { get { return $"SavedData/{this.ID}.json"; } }
+        public string FileName { get { return $"saves/{this.ID}.json"; } }
 
         public User() { }
 

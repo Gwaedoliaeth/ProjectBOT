@@ -18,13 +18,66 @@ namespace ProjectBOT
 
         public static Random Random;
 
+        public static List<User> Users = new List<User>();
+
+
         public static List<Race> Races { get; set; } = new List<Race>();
+        public static List<Class> Classes { get; set; } = new List<Class>();
 
         internal static void PrepareBot()
         {
             Random = new Random();
             PrepareRaces();
+            PrepareClassses();
+        }
 
+        private static void LoadSavedData()
+        {
+            Users = new List<User>();
+            string directory = Path.Combine(AppContext.BaseDirectory, "SavedData");
+            if (Directory.Exists(directory))
+            {
+                string[] files = Directory.GetFiles(directory);
+                foreach (string file in files)
+                {
+                    Users.Add(JsonConvert.DeserializeObject<User>(File.ReadAllText(file)));
+                }
+            }
+        }
+
+        private static void PrepareClassses()
+        {
+            string file = Path.Combine(AppContext.BaseDirectory, Class.FileName);
+            if (File.Exists(file))
+            {
+                // Get classes from json file
+                Classes = JsonConvert.DeserializeObject<List<Class>>(File.ReadAllText(file));
+                Console.WriteLine($"Classes loaded: {Classes.Count}");
+            }
+            else
+            {
+                // Create classes and save to json
+                Class fighter = new Class();
+                fighter.Name = "Fighter";
+                fighter.HitDiceType = 10;
+                fighter.SavingThrowsAttributes.Add(AttributeType.Strength);
+                fighter.SavingThrowsAttributes.Add(AttributeType.Constitution);
+
+                Class barbarian = new Class();
+                barbarian.Name = "Barbarian";
+                barbarian.HitDiceType = 12;
+                barbarian.SavingThrowsAttributes.Add(AttributeType.Strength);
+                barbarian.SavingThrowsAttributes.Add(AttributeType.Constitution);
+                
+
+                Classes.Add(fighter);
+                Classes.Add(barbarian);
+
+                string path = Path.GetDirectoryName(file);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                File.WriteAllText(file, JsonConvert.SerializeObject(Classes));
+            }
         }
 
         private static void PrepareRaces()
@@ -61,10 +114,6 @@ namespace ProjectBOT
                 gnome.Name = "Gnome";
                 gnome.AttributeModifiers.Add(AttributeType.Intelligence, 2);
 
-                //Race halfelf = new Race();
-                //halfelf.Name = "Half-Elf";
-                //halfelf.AttributeModifiers.Add(AttributeType.Charisma, 4);
-
                 Race halforc = new Race();
                 halforc.Name = "Half-Orc";
                 halforc.AttributeModifiers.Add(AttributeType.Strength, 2);
@@ -79,26 +128,19 @@ namespace ProjectBOT
                 thiefling.AttributeModifiers.Add(AttributeType.Intelligence, 1);
                 thiefling.AttributeModifiers.Add(AttributeType.Charisma, 2);
 
-
-
                 Races.Add(dragonborn);
                 Races.Add(dwarf);
                 Races.Add(elf);
                 Races.Add(gnome);
-                //Races.Add(halfelf);
                 Races.Add(halforc);
                 Races.Add(halfling);
                 Races.Add(human);
                 Races.Add(thiefling);
 
-
                 string path = Path.GetDirectoryName(file);
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
-
-                string racesJson = JsonConvert.SerializeObject(Races);
-
-                File.WriteAllText(file, racesJson);
+                File.WriteAllText(file, JsonConvert.SerializeObject(Races));
             }
         }
     }
