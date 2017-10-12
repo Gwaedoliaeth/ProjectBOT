@@ -36,6 +36,16 @@ namespace ProjectBOT
             // Create a new command context.
             var context = new SocketCommandContext(_client, msg);
 
+            User user = Globals.GetUser(context);
+            // For Mantarias: Room to do some shady stuff here
+
+
+
+            // For Mantarias: If you already did something above and don't want the bottom to get exected, you have to type in return;
+            // Example: If User's ID is 2542375525, do not take any commands from him:
+            // if (user.ID == 2542375525)
+            // return;
+
             int argPos = 0;
             // Check if the message has either a string or mention prefix.
             if (msg.HasStringPrefix(Globals.Configuration.Prefix, ref argPos) ||

@@ -6,6 +6,8 @@ using ProjectBOT.Arena.Core;
 using ProjectBOT.Arena.Base.Enums;
 using Newtonsoft.Json;
 using System.IO;
+using Discord.Commands;
+using System.Linq;
 
 namespace ProjectBOT
 {
@@ -19,6 +21,22 @@ namespace ProjectBOT
         public static Random Random;
 
         public static List<User> Users = new List<User>();
+
+        /// <summary>
+        /// Gets an user from the current context. Creates the user if he doesn't exist yet.
+        /// </summary>
+        /// <param name="context">Context</param>
+        /// <returns>User</returns>
+        public static User GetUser(SocketCommandContext context)
+        {
+            User user = Globals.Users.Where(i => i.ID == context.User.Id).FirstOrDefault();
+            if (user == null)
+            {
+                user = new User(context.User.Id, context.User.Mention);
+                Globals.Users.Add(user);
+            }
+            return user;
+        }
 
 
         public static Races Races { get; set; } = new Races();
