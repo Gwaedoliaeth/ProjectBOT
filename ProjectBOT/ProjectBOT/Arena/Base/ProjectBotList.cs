@@ -9,6 +9,15 @@ namespace ProjectBOT.Arena.Base
 {
     public class ProjectBotList<T> : List<T> where T : IEntry
     {
+        public virtual string ToDisplayList()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < this.Count; i++)
+                sb.AppendLine($"{i + 1}  {this[i].Name}");
+
+            return sb.ToString();
+        }
+
         public virtual string ToDisplayList(int page = 1)
         {
             StringBuilder sb = new StringBuilder();
