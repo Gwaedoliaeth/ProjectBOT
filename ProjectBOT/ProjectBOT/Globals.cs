@@ -21,7 +21,7 @@ namespace ProjectBOT
         public static List<User> Users = new List<User>();
 
 
-        public static List<Race> Races { get; set; } = new List<Race>();
+        public static Races Races { get; set; } = new Races();
         public static List<Class> Classes { get; set; } = new List<Class>();
 
         internal static void PrepareBot()
@@ -86,7 +86,7 @@ namespace ProjectBOT
             if (File.Exists(file))
             {
                 // Get races from json file
-                Races = JsonConvert.DeserializeObject<List<Race>>(File.ReadAllText(file));
+                Races = JsonConvert.DeserializeObject<Races>(File.ReadAllText(file));
                 Console.WriteLine($"Races loaded: {Races.Count}");
             }
             else

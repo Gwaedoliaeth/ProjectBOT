@@ -14,6 +14,11 @@ namespace ProjectBOT.Common
         [JsonIgnore]
         /// <summary> The location and name of your bot's configuration file. </summary>
         public static string FileName { get; private set; } = "config/configuration.json";
+        [JsonIgnore]
+        /// <summary>
+        /// How many entries will be shown per page.
+        /// </summary>
+        public static int EntriesPerPage { get; set; } = 5;
         /// <summary> Ids of users who will have owner access to the bot. </summary>
         public List<ulong> Owners { get; set; }
         /// <summary> Your bot's command prefix. </summary>
