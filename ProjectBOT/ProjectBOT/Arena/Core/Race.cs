@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using ProjectBOT.Arena.Base.Enums;
 using System.Linq;
+using ProjectBOT.Arena.Base.Interface;
+using ProjectBOT.Arena.Base;
 
 namespace ProjectBOT.Arena.Core
 {
-    public class Race
+    public class Race : IEntry
     {
         public static string FileName { get { return "core/races.json"; } }
 
@@ -24,19 +26,8 @@ namespace ProjectBOT.Arena.Core
     }
 
 
-    public class Races : List<Race>
+    public class Races : ProjectBotList<Race>
     {
-        public Races() { }
-
-        public string ToDisplayList(int page = 1)
-        {
-            StringBuilder sb = new StringBuilder();
-            int index = page == 1 ? 0 : (page - 1) * Common.Configuration.EntriesPerPage;
-            List<Race> races = this.Skip(index).Take(Common.Configuration.EntriesPerPage).ToList();
-            for (int i = 0; i < races.Count; i++)
-                sb.AppendLine($"{index + i + 1}  {races[i].Name}");
-
-            return sb.ToString();
-        }
+        
     }
 }

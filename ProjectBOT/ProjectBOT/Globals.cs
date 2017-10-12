@@ -123,10 +123,10 @@ namespace ProjectBOT
                 halfling.Name = "Halfling";
                 halfling.AttributeModifiers.Add(AttributeType.Dexterity, 2);
 
-                Race thiefling = new Race();
-                thiefling.Name = "Thiefling";
-                thiefling.AttributeModifiers.Add(AttributeType.Intelligence, 1);
-                thiefling.AttributeModifiers.Add(AttributeType.Charisma, 2);
+                Race tiefling = new Race();
+                tiefling.Name = "Tiefling";
+                tiefling.AttributeModifiers.Add(AttributeType.Intelligence, 1);
+                tiefling.AttributeModifiers.Add(AttributeType.Charisma, 2);
 
                 Races.Add(dragonborn);
                 Races.Add(dwarf);
@@ -135,7 +135,7 @@ namespace ProjectBOT
                 Races.Add(halforc);
                 Races.Add(halfling);
                 Races.Add(human);
-                Races.Add(thiefling);
+                Races.Add(tiefling);
 
                 string path = Path.GetDirectoryName(file);
                 if (!Directory.Exists(path))
