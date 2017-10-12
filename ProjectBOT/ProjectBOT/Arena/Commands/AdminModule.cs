@@ -28,5 +28,16 @@ namespace ProjectBOT.Arena.Commands
             }
             await message.Send(Context);
         }
+
+        [Command("ChangeEntriesPerPage")]
+        [Summary("Sets a new value for entries per page.")]
+        [Remarks("Admin EntriesPerPage 5")]
+        [MinPermissions(AccessLevel.ServerMod)]
+        public async Task EntriesPerPage([Summary("Number of new entries per page.")]int entries)
+        {
+            Message message = new Message($"Changed entries per page from {Configuration.EntriesPerPage} to {entries}");
+            Configuration.EntriesPerPage = entries;
+            await message.Send(Context);
+        }
     }
 }
