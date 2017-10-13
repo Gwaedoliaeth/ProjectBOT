@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Discord.Commands;
 using System.Linq;
+using static ProjectBOT.Arena.Core.Class;
 
 namespace ProjectBOT
 {
@@ -40,7 +41,7 @@ namespace ProjectBOT
 
 
         public static Races Races { get; set; } = new Races();
-        public static List<Class> Classes { get; set; } = new List<Class>();
+        public static Classes Classes { get; set; } = new Classes();
 
         internal static void PrepareBot()
         {
@@ -69,7 +70,7 @@ namespace ProjectBOT
             if (File.Exists(file))
             {
                 // Get classes from json file
-                Classes = JsonConvert.DeserializeObject<List<Class>>(File.ReadAllText(file));
+                Classes = JsonConvert.DeserializeObject<Classes>(File.ReadAllText(file));
                 Console.WriteLine($"Classes loaded: {Classes.Count}");
             }
             else

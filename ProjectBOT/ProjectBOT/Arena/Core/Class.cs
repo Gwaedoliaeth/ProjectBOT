@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using ProjectBOT.Arena.Base.Enums;
+using System.Linq;
+using ProjectBOT.Arena.Base.Interface;
+using ProjectBOT.Arena.Base;
 
 namespace ProjectBOT.Arena.Core
 {
-    public class Class
+    public class Class : IEntry
     {
+
         public static string FileName { get { return "core/classes.json"; } }
 
         public string Name { get; set; }
@@ -16,5 +20,10 @@ namespace ProjectBOT.Arena.Core
         public AttributeType? SpellcastingAttribute { get; set; }
 
         public Class() { }
+
+        public class Classes : ProjectBotList<Class>
+        {
+
+        }
     }
 }
